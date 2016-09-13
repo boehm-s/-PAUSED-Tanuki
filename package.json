@@ -10,11 +10,11 @@
   },
   "scripts": {
     "start": "node ./build/app.js",
-    "clean": "rm -rf build && mkdir -p build/config",
-    "build-server": "babel -d ./build/config ./config && babel -d ./build ./app.js",
-    "build-front": "rsync -av --progress ./front ./build --exclude public/js && mkdir ./build/front/public/js && babel -d ./build/front/public/js ./front/public/js"
+    "clean": "rm -rf build && mkdir -p build/config && mkdir build/API",
+    "build": "babel -d ./build/config ./config && babel -d ./build/API ./API && babel -d ./build ./app.js"
   },
   "dependencies": {
+    "babel-preset-es2015": "^6.14.0",
     "body-parser": "~1.15.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",

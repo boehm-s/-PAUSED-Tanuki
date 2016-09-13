@@ -1,15 +1,13 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var path = require('path');
+import express from 'express';
+import bodyParser from 'body-parser';
+import logger  from 'morgan';
+import cookieParser from 'cookie-parser';
+import path from 'path';
 
-var app = express();
+const app = express();
 
-
-var root = __dirname + '/../';
-var frontRoot = root + 'front/';
-var backRoot = root + 'back/';
+const frontRoot = './../FRONT/';
+const apiRoot = './API/'; // api inside build
 
 
 // uncomment after placing your favicon in /public
@@ -35,6 +33,4 @@ app.use(require('node-sass-middleware')({
 // public directory
 app.use(express.static(path.join(frontRoot, 'public')));
 
-
-
-module.exports = app;
+export default app;
