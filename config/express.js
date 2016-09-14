@@ -6,7 +6,7 @@ import path from 'path';
 
 const app = express();
 
-const frontRoot = './../FRONT/';
+const frontRoot = __dirname + '/../../FRONT/';
 const apiRoot = './API/'; // api inside build
 
 
@@ -14,7 +14,7 @@ const apiRoot = './API/'; // api inside build
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.set('views', path.join(frontRoot, 'views'));
 

@@ -9,7 +9,7 @@
     ]
   },
   "scripts": {
-    "start": "node ./build/app.js",
+    "start": "npm run clean && npm run build && node ./build/app.js",
     "clean": "rm -rf build && mkdir -p build/config && mkdir build/API",
     "build": "babel -d ./build/config ./config && babel -d ./build/API ./API && babel -d ./build ./app.js"
   },

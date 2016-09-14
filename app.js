@@ -1,12 +1,14 @@
 import app from './config/express';
 import createServer from './config/server';
 import routes from './../FRONT/routes/index';
+import apiRoutes from './API/routes/index';
 
 const server = createServer(app);
 const port = (process.env.PORT || '3000');
 
 // mount routes
 app.use('/', routes);
+app.use('/api', apiRoutes);
 
 server.listen(port);
 console.log('server listening on port ' + port);
