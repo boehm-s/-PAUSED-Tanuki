@@ -1,0 +1,11 @@
+{
+  "name"             : "es6-express-api",
+  "script"           : "~/Documents/es6-express-api/app.js",
+  "exec_interpreter" : "babel-node",
+  "exec_mode"        :"cluster",
+  "instances"        : 0,
+  "watch"            : true,
+  "env": {
+    "NODE_ENV": "development",
+  }
+}
