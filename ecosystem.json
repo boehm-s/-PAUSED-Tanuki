@@ -1,11 +1,19 @@
 {
-  "name"             : "es6-express-api",
-  "script"           : "~/Documents/es6-express-api/app.js",
-  "exec_interpreter" : "babel-node",
-  "exec_mode"        :"cluster",
-  "instances"        : 0,
-  "watch"            : true,
-  "env": {
-    "NODE_ENV": "development",
-  }
+  "apps" : [{
+    "name"            : "es6-express-api",
+    "script"          : "./app.js",
+    "merge_logs"      : true,
+    "cwd"             : "/home/boehm-s/Documents/es6-express-api/",
+    "node_args"       : "--harmony",
+    "exec_interpreter" : "babel-node",
+    "exec_mode"       : "fork_mode",
+    "env"             : {
+      "NODE_ENV": "production",
+      "PORT": "3000"
+    }
+  }]
 }
+
+
+
+

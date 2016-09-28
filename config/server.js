@@ -3,7 +3,7 @@ const debug = require('debug')('LetVibe:server');
 
 function createServer(app){
   var server = http.createServer(app);
-  server.on('error', onError);
+//  server.on('error', onError);
   server.on('listening', onListening);
 
   function normalizePort(val) {

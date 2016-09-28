@@ -1,6 +1,6 @@
 import app from './config/express';
 import createServer from './config/server';
-import routes from './../FRONT/routes/index';
+import routes from './FRONT/routes/index';
 import apiRoutes from './API/routes/index';
 
 const server = createServer(app);
