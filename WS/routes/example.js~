@@ -1,0 +1,7 @@
+import express from 'express';
+import exampleCtrl from './../controllers/example';
+
+const router = express.Router();
+
+router.route('/')
+    .get();
