@@ -32,28 +32,9 @@ app.use(sass({
 app.set('views', path.join(frontRoot, 'views'));
 app.set('view engine', 'jade');
 
-
 // mount routes
 app.use('/', routes);
 app.use('/api', apiRoutes);
 
 server.listen(port);
 console.log('server listening on port ' + port);
-
-
-
-
-// error handlers
-app.use((req, res, next) => {
-  let err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
-
-app.use((err, req, res, next) => {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
-});
