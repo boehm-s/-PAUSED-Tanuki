@@ -1,10 +1,17 @@
-import http from 'http';
+import http	from	'http';
+import https	from	'https';
+import fs	from	'fs';
+
 const debug = require('debug')('es6-express-api:server');
 
 const createServer = (app, port) => {
-    var server = http.createServer(app);
-    server.on('error', onError);
-    server.on('listening', onListening);
+    var httpsServer = https.createServer({
+	key: fs.readFileSync('snakeoil.key'),
+	cert: fs.readFileSync('snakeoil.pem')
+    }, app);
+
+    httpsServer.on('error', onError);
+    httpsServer.on('listening', onListening);
 
     const normalizePort = val => {
 	var port = parseInt(val, 10);
@@ -31,7 +38,7 @@ const createServer = (app, port) => {
     };
 
     function onListening()  {
-	var addr = server.address();
+	var addr = httpsServer.address();
 	var bind = (typeof addr === 'string')
 		? `pipe ${addr}`
 		: `port ${addr.port}`;
@@ -39,7 +46,7 @@ const createServer = (app, port) => {
 	debug('Listening on ' + bind);
     };
 
-    return server;
+    return httpsServer;
 };
 
 export default createServer;

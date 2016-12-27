@@ -16,6 +16,7 @@ app.use('/api', apiRoutes);
 wsRoutes(wsServer, server);
 
 server.listen(port);
+
 console.log('server listening on port ' + port);
 
 wss.on('connection', ws => {
