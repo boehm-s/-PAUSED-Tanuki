@@ -1,9 +1,9 @@
-import ws		from	 'ws';
-import createServer	from	 './config/server';
-import app		from	 './config/app';
-import routes		from	 './FRONT/routes/index';
-import apiRoutes	from	 './API/routes/index';
-import wsRoutes		from	 './WS';
+import ws		from  'ws';
+import createServer	from  './config/server';
+import app		from  './config/app';
+import routes		from  './FRONT/routes/index';
+import apiRoutes	from  './API/routes/index';
+import wsRoutes		from  './WS';
 
 const port	= (process.env.PORT || '3000');
 const server	= createServer(app, port);
