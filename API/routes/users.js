@@ -5,6 +5,7 @@ import accessControl	from './../controllers/access';
 const router = express.Router();
 
 router.route('/')
-    .get(accessControl.authorize(['admin']), usersCtrl.getAll);
+    .get(accessControl.authorize(['admin']), usersCtrl.getAll)
+    .post(usersCtrl.register);
 
 export default router;

@@ -7,11 +7,12 @@ const getAll = (req, res, next) => {
     res.json(allUsers);
 };
 
-const register = (req, res, next) => {
-    let body = req.body.pick(['firstname', 'name', 'email', 'phone']);
-    let salt = bcrypt.genSaltSync(10);
-    let hash = bcrypt.hashSync(req.body.password, salt);
+const register = async (req, res, next) => {
+    let body = req.body.pick(['firstname', 'name', 'email']);
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(req.body.password, salt);
     body.password = hash;
+
     let token = jwt.sign({data: body}, 'this_is_so_secret_OUALLALA_OUALALA', { expiresIn: 60 * 60 * 24 * 31});
     let createdUser = usersModel.create(body, token);
 
