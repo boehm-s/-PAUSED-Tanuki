@@ -10,6 +10,15 @@ const server	= createServer(app, port);
 const wsServer	= ws.Server;
 const wss	= new wsServer({server, path: '/'});
 
+Object.prototype.pick = function(keys) {
+    return Object.keys(this)
+	.filter(key => keys.includes(key))
+	.reduce((obj, key) => {
+	    obj[key] = this[key];
+	    return obj;
+	}, {});
+};
+
 // mount routes
 app.use('/', routes);
 app.use('/api', apiRoutes);
@@ -19,7 +28,6 @@ server.listen(port);
 console.log('server listening on port ' + port);
 
 wss.on('connection', ws => {
-    console.log('hey connected to root ws !');
     ws.on('message', msg => {
 	console.log('received: %s', msg);
     });

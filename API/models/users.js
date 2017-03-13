@@ -1,6 +1,6 @@
 // you can 'import' your db here or your ORM conf
 
-const users = [
+var users = [
     {id: 1, role: "user", name: "DUPONT", firstname: "Antoine", token: "6dsf4g3vc"},
     {id: 2, role: "admin", name: "DURAND", firstname: "Alexis", token: "erg7332"},
     {id: 3, role: "user", name: "ALEXANDRE", firstname: "Romain", token: "asf687s"},
@@ -18,4 +18,10 @@ const getByToken = async (token) => {
     return users.filter(user => user.token == token)[0];
 };
 
-export default {getAll, getByToken};
+const create = async (body, token) => {
+    body.token = token;
+    users.push(body);
+    return body;
+};
+
+export default {getAll, getByToken, create};
