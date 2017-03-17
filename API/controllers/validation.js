@@ -7,7 +7,14 @@ const body = fieldsObj => {
 		? req.body.pick(required.concat(allowed))
 		: req.body.pick(allowed);
 	    next();
-	} else
-	    res.status(400).json({message: `required fields: ${required}`});
+	} else {
+	    let missingFields = Object.keys(req.body)
+		    .filter(key => !required.includes(key))
+		    .reduce((obj,key) => {
+			obj[key] = required[key];
+			return obj;
+		    }, {});
+	    res.status(400).json({message: `required fields: ${required}`, data: {missingFields}});
+	}
     };
 };
