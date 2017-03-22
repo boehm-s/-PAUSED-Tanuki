@@ -7,6 +7,13 @@ var users = [
     {id: 4, role: "user", name: "DELOUVE", firstname: "Mireille", token: "svd87d98a7"}
 ];
 
+
+const create = async (body, token) => {
+    body.token = token;
+    users.push(body);
+    return body;
+};
+
 const getAll = () => {
     //    let res = DB.query("SELECT * FROM users");
     //    let res = ORM.users.fetchAll();
@@ -18,10 +25,17 @@ const getByToken = async (token) => {
     return users.filter(user => user.token == token)[0];
 };
 
-const create = async (body, token) => {
-    body.token = token;
-    users.push(body);
-    return body;
+const getBy = async (obj) => {
+
+};
+
+const update = async (id, obj) => {
+    let index = users.map((user, i) => user.id === id ? i : 0).filter(n => n != 0)[0];
+    Object.keys(users[index]).forEach(key => {
+	if (obj.hasOwnProperty(key))
+	    users[index][key] = obj[key];
+    });
+    return users[index];
 };
 
 export default {getAll, getByToken, create};

@@ -5,7 +5,9 @@ const authorize = roles => {
     return function checkRoles(req, res, next) {
 	if (!req.hasOwnProperty('user'))
 	    return getCurrentUser(req, res, next, checkRoles);
-	if (!roles.includes(req.user.role))
+	if (roles.length == 1 && roles[0] == 'admin' && req.user.role != 'admin') /* 403 for admin-only routes */
+	    return res.status(403).json({message: "You're not authorize to access this route."});
+	else if (!roles.includes(req.user.role))
 	    return res.status(401).json({message: "You're not authorize to access this route."});
 	else
 	    return next();

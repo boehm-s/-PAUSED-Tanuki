@@ -2,12 +2,8 @@ import jwt		from 'jsonwebtoken';
 import bcrypt		from 'bcrypt';
 import usersModel	from './../models/users';
 
-const getAll = (req, res, next) => {
-    let allUsers = usersModel.getAll();
-    res.json(allUsers);
-};
 
-const register = async (req, res, next) => {
+const create = async (req, res, next) => {
     let body = req.body.pick(['firstname', 'name', 'email']);
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(req.body.password, salt);
@@ -19,4 +15,19 @@ const register = async (req, res, next) => {
     return res.json(createdUser);
 };
 
-export default {getAll, register};
+const getAll = (req, res, next) => {
+    let allUsers = usersModel.getAll();
+    res.json(allUsers);
+};
+
+const getBy = async (req, res, next) => {
+    let users = await usersModel.getBy(req.body);
+    return res.json(users);
+};
+
+const update = async (req, res, next) => {
+    let newUser = await usersModel.update(req.params.id, req.body);
+    return res.json(newUser);
+};
+
+export default {create, getAll, getBy, update};

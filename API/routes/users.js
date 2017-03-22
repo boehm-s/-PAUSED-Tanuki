@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.route('/')
     .get(accessControl.authorize(['admin']), usersCtrl.getAll)
-    .post(usersCtrl.register);
+    .post(usersCtrl.create);
 
 export default router;

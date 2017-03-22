@@ -6,7 +6,7 @@ const body = fieldsObj => {
 	    req.body = (allowed.filter(el => required.includes(el)) != required)
 		? req.body.pick(required.concat(allowed))
 		: req.body.pick(allowed);
-	    next();
+	    return next();
 	} else {
 	    let missingFields = Object.keys(req.body)
 		    .filter(key => !required.includes(key))
@@ -14,7 +14,24 @@ const body = fieldsObj => {
 			obj[key] = required[key];
 			return obj;
 		    }, {});
-	    res.status(400).json({message: `required fields: ${required}`, data: {missingFields}});
+	    return res.status(400).json({message: `required fields: ${required}`, data: {missingFields}});
+	}
+    };
+};
+
+const params = required => {
+    return (req, res, next) => {
+	if (required.filter(param => req.params.hasOwnProperty(param)).equals(required))
+	    return next();
+	else {
+	    let missingParams = Object.keys(req.params)
+		    .filter(key => !required.includes(key))
+		    .reduce((obj,key) => {
+			obj[key] = required[key];
+			return obj;
+		    }, {});
+
+	    return res.status(400).json({message: `required params: ${required}`, data: {missingParams}});
 	}
     };
 };
