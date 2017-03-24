@@ -27,7 +27,10 @@ const getBy = async (req, res, next) => {
 
 const update = async (req, res, next) => {
     let newUser = await usersModel.update(req.params.id, req.body);
-    return res.json(newUser);
+    if (newUser.err)
+	console.error(err);
+    else
+	return res.json(newUser);
 };
 
 export default {create, getAll, getBy, update};

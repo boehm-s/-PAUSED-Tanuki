@@ -26,6 +26,14 @@ const getByToken = async (token) => {
 };
 
 const getBy = async (obj) => {
+    if (users.length === 0)
+	return [];
+    else if (Object.keys(obj).filter(key => Object.keys(users[0]).includes(key)).length != Object.keys(obj).length)
+	return {err: `The following fields doesn't exists : ${Object.keys(obj).filter(key => !Object.keys(users[0]).includes(key))}`};
+    else
+	return users.filter( user => {
+	    // match all keys in obj
+	});
 
 };
 
