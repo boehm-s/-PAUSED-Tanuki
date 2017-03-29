@@ -25,6 +25,6 @@ app.use(sass({
 
 
 app.set('views', path.join(frontRoot, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 
 export default app;

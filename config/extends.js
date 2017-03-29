@@ -1,5 +1,7 @@
 const extendNativeObjects = () => {
     Object.prototype.pick = function(keys) {
+	if (this == null || this == undefined || typeof this != 'object')
+	    return {};
 	return Object.keys(this)
 	    .filter(key => keys.includes(key))
 	    .reduce((obj, key) => {
