@@ -1,36 +1,42 @@
 import jwt		from 'jsonwebtoken';
-import bcrypt		from 'bcrypt';
+import sha1		from 'sha1';
 import usersModel	from './../models/users';
 
 
 const create = async (req, res, next) => {
-    let body = req.body.pick(['firstname', 'name', 'email']);
-    const salt = await bcrypt.genSalt(10);
-    const hash = await bcrypt.hash(req.body.password, salt);
-    body.password = hash;
+    req.body.password = sha1(req.body.password);
+    let registered = await usersModel.create(req.body);
 
-    let token = jwt.sign({data: body}, 'this_is_so_secret_OUALLALA_OUALALA', { expiresIn: 60 * 60 * 24 * 31});
-    let createdUser = usersModel.create(body, token);
-
-    return res.json(createdUser);
+    return registered
+	? res.status(201).end('User successfully created')
+	: res.status(400).end('An error occured');
 };
 
-const getAll = (req, res, next) => {
-    let allUsers = usersModel.getAll();
+const getAll = async (req, res, next) => {
+    let allUsers = await usersModel.getAll();
+    allUsers = allUsers.map(user => user.pick(['id', 'lastname', 'firstname', 'email', 'role']));
     res.json(allUsers);
 };
 
 const getBy = async (req, res, next) => {
-    let users = await usersModel.getBy(req.body);
+    let users = await usersModel.getBy(req.app.get('db'), req.body);
     return res.json(users);
 };
 
-const update = async (req, res, next) => {
-    let newUser = await usersModel.update(req.params.id, req.body);
-    if (newUser.err)
-	console.error(err);
-    else
-	return res.json(newUser);
+
+const search = async (req, res, next) => {
+    let allUsers = await usersModel.getAll();
+    allUsers = allUsers.map(user => user.pick(['id', 'lastname', 'firstname', 'email', 'role']));
+    allUsers = allUsers.filter(user => user.lastname == req.query.q || user.email == req.query.q);
+
+    if (req.query.count) {
+	let count = parseInt(req.query.count);
+	allUsers = allUsers.filter((user, i) => i < count);
+    }
+
+    return (allUsers.length == 0)
+	? res.status(404).end('No user found')
+	: res.json(allUsers);
 };
 
-export default {create, getAll, getBy, update};
+export default {create, getAll, getBy, search};

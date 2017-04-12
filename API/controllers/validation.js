@@ -2,7 +2,7 @@ const body = fieldsObj => {
     return (req, res, next) => {
 	let allowed = fieldsObj.allowed || [];
 	let required = fieldsObj.required || [];
-	if (required.filter(field => req.body.hasOwnProperty(field)).equals(required)) {
+	if (required.filter(field => req.body.hasOwnProperty(field) && req.body[field] != null && req.body[field] != "").equals(required)) {
 	    req.body = (allowed.filter(el => required.includes(el)) != required)
 		? req.body.pick(required.concat(allowed))
 		: req.body.pick(allowed);
@@ -14,7 +14,7 @@ const body = fieldsObj => {
 			obj[key] = required[key];
 			return obj;
 		    }, {});
-	    return res.status(400).json({message: `required fields: ${required}`, data: {missingFields}});
+	    return res.status(400).end('An error occured');
 	}
     };
 };
@@ -31,7 +31,30 @@ const params = required => {
 			return obj;
 		    }, {});
 
-	    return res.status(400).json({message: `required params: ${required}`, data: {missingParams}});
+	    return res.status(400).end('An error occured');
 	}
     };
 };
+
+const query = fieldsObj => {
+    return (req, res, next) => {
+	let allowed = fieldsObj.allowed || [];
+	let required = fieldsObj.required || [];
+	if (required.filter(field => req.query.hasOwnProperty(field) && req.query[field] != null && req.query[field] != "").equals(required)) {
+	    req.query = (allowed.filter(el => required.includes(el)) != required)
+		? req.query.pick(required.concat(allowed))
+		: req.query.pick(allowed);
+	    return next();
+	} else {
+	    let missingFields = Object.keys(req.query)
+		    .filter(key => !required.includes(key))
+		    .reduce((obj,key) => {
+			obj[key] = required[key];
+			return obj;
+		    }, {});
+	    return res.status(400).end('An error occured');
+	}
+    };
+};
+
+export default {body, params, query};

@@ -4,9 +4,10 @@ import logger		from	 'morgan';
 import cookieParser	from	 'cookie-parser';
 import path		from	 'path';
 import sass		from	 'node-sass-middleware';
+
 const app	= express();
 const frontRoot = __dirname + '/../FRONT/';
-const apiRoot	= __dirname + '/../API/';
+
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -21,7 +22,6 @@ app.use(sass({
     indentedSyntax: true,
     sourceMap: true
 }));
-
 
 
 app.set('views', path.join(frontRoot, 'views'));
