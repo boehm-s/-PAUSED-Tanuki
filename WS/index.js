@@ -13,7 +13,6 @@ const router = (wsServer, server) => {
 		let path = `/${file.split('.')[0]}`;
 		let wss = new wsServer({server, path});
 		let route = require(`${routeFolder}/${path}`);
-
 		route(wss);
 	    });
 

@@ -1,9 +1,3 @@
-import db	from 'sqlite';
-
-Promise.resolve()
-    .then(() => db.open('db.sqlite', { Promise }))
-    .catch(err => console.error(err.stack));
-
 const create = async (body) => {
     await db.run(`INSERT INTO user(firstname, lastname, email, password, role)
                   VALUES(?, ?, ?, ?, ?)`,
