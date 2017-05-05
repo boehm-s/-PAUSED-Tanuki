@@ -3,9 +3,8 @@ import db	from 'sqlite';
 const initDB = async () => {
     await Promise.resolve()
 	.then(() => {
-	    console.log("init db");
-	    global.db = db;
-	    return db.open('./db.sqlite', { Promise });
+	    console.warn("default: no db");
+	    global.db = null;
 	})
 	.catch(err => console.error(err.stack));
 };

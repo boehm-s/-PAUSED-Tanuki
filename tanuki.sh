@@ -17,7 +17,7 @@ EOF
 
     echo -e "\n\nUsage: ./tanuki.sh [OPTION...]\n"
     echo -e "-?, --help \t\t gives this help list"
-    echo -e "-d, --database=DB \t makes the API use the database you want (DB)"
+    echo -e "-d, --database DB \t makes the API use the database you want (DB)"
 }
 
 strindex() {
@@ -43,6 +43,7 @@ function _db() {
 	done
     else
 	echo -e "\e[31mNo configuration for db :\e[39m $1"
+	exit 1
     fi
 
     if [ ${#overwritten_files[@]} -eq 0 ]; then

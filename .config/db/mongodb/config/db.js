@@ -1,13 +1,9 @@
-import db	from 'sqlite';
+import mongoose		from 'mongoose';
 
 const initDB = async () => {
-    await Promise.resolve()
-	.then(() => {
-	    console.log("init db");
-	    global.db = db;
-	    return db.open('./db.sqlite', { Promise });
-	})
-	.catch(err => console.error(err.stack));
+    mongoose.connect('mongodb://localhost/tanuki');
+    global.db = mongoose;
+    return true;
 };
 
 export default {initDB};

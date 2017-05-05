@@ -1,17 +1,23 @@
 # Tanuki
 
-ES6 API Boilerplate based on Express, Starter kit for any Express-based API / Website project
+Tanuki is a tool, or a framework (call it as you want) that I've created to save time and to not have to rebuild the wheel everytime I start a new Express based API or Website.
 
-Multiples branches will be available with a basic user management system for different databases (Postgres, MySQL, Mongo and more ?)
+The perpice of this project is to have a tool that is able to build the same API and Website with a lot of different databases or front-end technologies while keeping the same NodeJS / Express design.
 
-In the FRONT/ directory, you will find the same folders that are created by the express-generator
-In the API/ directory, you will find your controllers, (models), routes and (helpers). This design is made to efficiently use the Express Middlewares.
+For example, in one command, you will be able to have an application with user management and admin panel with the following technologies :
+ * MySQL, ReactJS / Redux, SASS
+ * MongoDB, AngularJS, LESS
+ * PostgreSQL, VanillaJS, Pug, SASS (My favorite ^^)
+
 
 # Deploy and dev
 
-This project use [pm2](https://github.com/Unitech/pm2) with [babel](https://github.com/babel/babel) so you can always use the latest features and deploy with a multithreaded solution (`pm2`).
+Because we love ES6, ES7 and ESWhateverYouWant, *Tanuki* uses [babel](https://github.com/babel/babel) so you can always use the latest JS features.
+Tanuki also uses [pm2](https://github.com/Unitech/pm2) because it's an adorable solution to deploy applications and it runs your nodejs script as a multithreaded application.
 
 # Architecture
+
+When I have the time, I will draw this architecture to make it more understandable.
 
 ## app.js
 
@@ -40,3 +46,8 @@ Retrieve data from your models, process the data and add it to the req object, t
 ### routes
 
 Use your controllers as middlewares to obtain the data needed, then write a 'last middleware' that will get the req object, gather the datas and return it.
+
+
+## TODO
+
+* adding 'self' feature to accessControl
