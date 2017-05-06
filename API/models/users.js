@@ -1,12 +1,16 @@
 // you can 'import' your db here or your ORM conf
 
 var users = [
-    {id: 1, role: "user", name: "DUPONT", firstname: "Antoine", token: "6dsf4g3vc"},
-    {id: 2, role: "admin", name: "DURAND", firstname: "Alexis", token: "erg7332"},
-    {id: 3, role: "user", name: "ALEXANDRE", firstname: "Romain", token: "asf687s"},
-    {id: 4, role: "user", name: "DELOUVE", firstname: "Mireille", token: "svd87d98a7"}
+    {id: 0, firstname: "Antoine", lastname: "DUPONT",  email: "antoine.dupont@gmail.com", birthdate: 1494074194 , password: "6dsf4g3vc", role: 1},
+    {id: 1, firstname: "Alexis", lastname: "DURAND",  email: "alexis.durand@gmail.com", birthdate: 1494074194 , password: "erg7332", role: 0},
+    {id: 2, firstname: "Romain", lastname: "ALEXANDRE",  email: "romain.alexandre@gmail.com", birthdate: 1494074194 , password: "asf687s", role: 0},
+    {id: 3, firstname: "Mireille", lastname: "DELOUVE",  email: "mireille.delouve@gmail.com", birthdate: 1494074194 , password: "svd87d98a7", role: 0}
 ];
 
+var roles = [
+    {id: 0, role: "user", description: "just a user"},
+    {id: 2, role: "admin", description: "just an administrator, he has a lot of rights ... "}
+];
 
 const create = async (body, token) => {
     body.token = token;
@@ -15,15 +19,10 @@ const create = async (body, token) => {
 };
 
 const getAll = () => {
-    //    let res = DB.query("SELECT * FROM users");
-    //    let res = ORM.users.fetchAll();
-
     return users;
 };
 
-const getByToken = async (token) => {
-    return users.filter(user => user.token == token)[0];
-};
+const getByToken = async (token) =>  users.filter(user => user.token == token)[0];
 
 const getBy = async (obj) => {
     if (users.length === 0)
