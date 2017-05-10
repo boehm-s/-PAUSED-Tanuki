@@ -35,3 +35,5 @@ const params = required => {
 	}
     };
 };
+
+export default {body, params};
