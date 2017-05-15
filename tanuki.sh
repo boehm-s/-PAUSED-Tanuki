@@ -64,7 +64,7 @@ function _db() {
 			  eval $action
 		      done
 		      cat .tanuki.json | python -c "import json,sys;obj=json.load(sys.stdin);\
-    		       	  	       	 	    obj['currentConf']['db'] = $1;\
+    		       	  	       	 	    obj['currentConf']['db'] = '$1';\
 			  			    print json.dumps(obj, sort_keys=True, indent=4, separators=(',', ': '));" > .tanuki.json
 
 		      echo -e "\e[32mDone !\e[39m"
