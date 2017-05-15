@@ -1,9 +1,5 @@
 import db	from 'sqlite';
 
-Promise.resolve()
-    .then(() => db.open('db.sqlite', { Promise }))
-    .catch(err => console.error(err.stack));
-
 const create = async (body) => {
     await db.run(`INSERT INTO user(firstname, lastname, email, password, role)
                   VALUES(?, ?, ?, ?, ?)`,
@@ -19,11 +15,52 @@ const getAll = async () => {
 };
 
 
-const getBy = async (obj) => {
-    let db_rows = Object.keys(obj).map(key => `${key} = ?`).join(' AND ');
-    let params =  Object.keys(obj).map(key => obj[key]);
-    let res = await db.all(`SELECT * FROM user WHERE ${db_rows};`, params);
-    return res ? res : false;
+const getBy = async (filter) => {
+    let filterRows = Object.keys(filter).map(key => `${key} = ?`).join(' AND ');
+    let filterRowsValue =  Object.keys(filter).map(key => filter[key]);
+
+    try {
+	var res = await db.all(`SELECT * FROM user WHERE ${filterRows};`, filterRowsValue);
+    } catch (e) {
+	return {error: e};
+    }
+
+    return res;
 };
 
-export default {create, getAll, getBy };
+const updateBy = async (filter, update) => {
+    let filterRows = Object.keys(filter).map(key => `${key} = ?`).join(' AND ');
+    let filterRowsValue = Object.keys(filter).map(key => filter[key]);
+    let updateRows = Object.keys(update).map(key => `${key} = ?`).join(', ');
+    let updateRowsValue = Object.keys(update).map(key => update[key]);
+
+    try {
+	var query = await db.run(`UPDATE user SET ${updateRows} WHERE ${filterRows};`,
+				 updateRowsValue.concat(updateRowsValue));
+    } catch (e) {
+	return {error: e};
+    }
+
+    return (query.stmt.changes === 0)
+	? []
+	: await db.all(`SELECT * FROM user WHERE  =  ${filterRows};`, filterRowsValue);
+};
+
+const deleteBy = async (filter) => {
+    let filterRows = Object.keys(filter).map(key => `${key} = ?`).join(' AND ');
+    let filterRowsValue = Object.keys(filter).map(key => filter[key]);
+
+    try {
+	var select = await db.run(`SELECT * FROM user WHERE ${filterRows};`, filterRowsValue);
+	var query = await db.run(`DELETE FROM user WHERE  ${filterRows};`, filterRowsValue);
+    } catch (e) {
+	return {error: e};
+    }
+
+    return (query.stmt.changes === 0)
+	? []
+	: select;
+};
+
+
+export default {create, getAll, getBy, updateBy, deleteBy };

@@ -1,29 +1,32 @@
-import db	from 'sqlite';
-
-Promise.resolve()
-    .then(() => db.open('db.sqlite', { Promise }))
-    .catch(err => console.error(err.stack));
+const mongoose = global.db;
 
 const create = async (body) => {
-    await db.run(`INSERT INTO user(firstname, lastname, email, password, role)
-                  VALUES(?, ?, ?, ?, ?)`,
-		 [body.firstname,  body.lastname,  body.email,  body.password,  body.role]);
-
-    body.id = db.lastInsertRowId;
+    let user = new Users(body);
+    let doc = await user.save();
     return body;
 };
 
 const getAll = async () => {
-    let allUsers = await db.all('SELECT * FROM user;');
+    let allUsers = await Users.find({});
     return allUsers;
 };
 
+const getBy = async (filter) => {
+    try {
+	var res = await Users.find(filter);
+    } catch (e) {
+	return {error: e};
+    }
 
-const getBy = async (obj) => {
-    let db_rows = Object.keys(obj).map(key => `${key} = ?`).join(' AND ');
-    let params =  Object.keys(obj).map(key => obj[key]);
-    let res = await db.all(`SELECT * FROM user WHERE ${db_rows};`, params);
-    return res ? res : false;
+    return res;
 };
 
-export default {create, getAll, getBy };
+const updateBy = async (filter) => {
+
+};
+
+const deleteBy = async (filter) => {
+
+};
+
+export default { create, getAll, getBy, updateBy, deleteBy };

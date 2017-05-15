@@ -40,4 +40,4 @@ const deleteBy = async (req, res, next) => {
     return res.json(deletedUsers);
 };
 
-export default {create, getAll, getBy, updateBy};
+export default {create, getAll, getBy, updateBy, deleteBy};

@@ -4,33 +4,40 @@ import usersModel	from './../models/users';
 
 
 const create = async (req, res, next) => {
-    let body = req.body.pick(['firstname', 'name', 'email']);
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(req.body.password, salt);
-    body.password = hash;
+    const jwtBody = req.body.pick(['firstname', 'name', 'email']);
 
-    let token = jwt.sign({data: body}, 'this_is_so_secret_OUALLALA_OUALALA', { expiresIn: 60 * 60 * 24 * 31});
-    let createdUser = usersModel.create(body, token);
+    jwt.sign({data: jwtBody}, 'this_is_so_secret', { expiresIn: 60 * 60 * 24 * 31});
+    req.body.password = hash;
+    let createdUser = await usersModel.create(req.body);
 
     return res.json(createdUser);
 };
 
-const getAll = (req, res, next) => {
-    let allUsers = usersModel.getAll();
+const getAll = async (req, res, next) => {
+    let allUsers = await usersModel.getAll();
     res.json(allUsers);
 };
 
 const getBy = async (req, res, next) => {
-    let users = await usersModel.getBy(req.body);
+    req.body.filter = { id: req.params.id };
+    let users = await usersModel.getBy(req.body.filter);
     return res.json(users);
 };
 
-const update = async (req, res, next) => {
-    let newUser = await usersModel.update(req.params.id, req.body);
-    if (newUser.err)
-	console.error(err);
-    else
-	return res.json(newUser);
+const updateBy = async (req, res, next) => {
+    req.body.filter = { id: req.params.id };
+    let updatedUsers = await usersModel.update(req.body.filter, req.body.update);
+    return (updatedUsers.err)
+	? console.error(updatedUsers.err)
+	: res.json(updatedUsers);
 };
 
-export default {create, getAll, getBy, update};
+const deleteBy = async (req, res, next) => {
+    req.body.filter = { id: req.params.id };
+    let deletedUsers = await usersModel.deleteBy(req.body.filter);
+    return res.json(deletedUsers);
+};
+
+export default {create, getAll, getBy, updateBy, deleteBy};

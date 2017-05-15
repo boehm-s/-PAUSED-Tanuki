@@ -1,5 +1,3 @@
-import db	from 'sqlite';
-
 const initDB = async () => {
     await Promise.resolve()
 	.then(() => {
