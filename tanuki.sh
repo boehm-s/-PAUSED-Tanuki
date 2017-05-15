@@ -47,6 +47,10 @@ function _db() {
     fi
 
     if [ ${#overwritten_files[@]} -eq 0 ]; then
+	updated_json=$(cat .tanuki.json | python -c "import json,sys;obj=json.load(sys.stdin);\
+	    		   	      obj['currentConf']['db'] = '$1';\
+				      print json.dumps(obj, sort_keys=True, indent=4, separators=(',', ': '));");
+	echo $updated_json > .tanuki.json
 	echo -e "\e[32mDone !\e[39m (No files has been overwritten)"
     else
 	echo -e "\e[33mThe following files will be overwritten : \e[39m"
@@ -59,6 +63,10 @@ function _db() {
 		      do
 			  eval $action
 		      done
+		      cat .tanuki.json | python -c "import json,sys;obj=json.load(sys.stdin);\
+    		       	  	       	 	    obj['currentConf']['db'] = $1;\
+			  			    print json.dumps(obj, sort_keys=True, indent=4, separators=(',', ': '));" > .tanuki.json
+
 		      echo -e "\e[32mDone !\e[39m"
 		      break
 		      ;;
@@ -70,6 +78,18 @@ function _db() {
 	    esac
 	done
     fi
+}
+
+function _status() {
+    status=$(cat .tanuki.json | python -c "import json,sys;obj=json.load(sys.stdin);\
+ print '@\e[36mVersion: ##\e[39m' + obj['version'];\
+ print '@\e[36mDatabase: ##\e[39m' + obj['currentConf']['db'];\
+ print '@\e[36mTemplate engine: #\e[39m' + obj['currentConf']['html'];\
+ print '@\e[36mCSS preprocessor: #\e[39m' + obj['currentConf']['css'];\
+ print '@\e[36mJS Framework: ##\e[39m' + obj['currentConf']['js'];\
+ print '@';\
+")
+    echo -e $status | tr "@" "\n" | tr "#" "\t"
 }
 
 optspec=":-:"
@@ -91,6 +111,10 @@ while getopts "$optspec" optchar; do
 	database)
 	    value="${!OPTIND}"; OPTIND=$(( $OPTIND + 1 ))
 	    _db ${value}
+	    exit 1
+	    ;;
+	status)
+	    _status
 	    exit 1
 	    ;;
     esac
