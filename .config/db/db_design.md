@@ -20,11 +20,11 @@
 
  * create
  * getAll()
- * getBy(obj)
- * updateBy(obj)
- * deleteBy(obj)
+ * getBy(filter)
+ * updateBy(filter, update)
+ * deleteBy(filter)
 
-All the methods that have 'By' suffix can perform bulk operations. If you want the operation to be performed on an only entry, just pass the `id` as parameter of the function (`id`s are unique).
+All the methods that have 'By' suffix can perform bulk operations. If you want the operation to be performed on a single entry, just pass the `id` as parameter of the function (`id`s are unique).
 
 ### Table / Model name : 'roles'
 ```
