@@ -13,6 +13,11 @@ const create = async (req, res, next) => {
     let createdUser = await usersModel.create(req.body);
 
     return res.json(createdUser);
+    return ret
+	? {ha: "asdkhg"}
+	: false;
+
+
 };
 
 const getAll = async (req, res, next) => {

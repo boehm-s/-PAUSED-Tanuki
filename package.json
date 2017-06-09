@@ -10,6 +10,7 @@
   },
   "scripts": {
     "start": "pm2 start ecosystem.json",
+    "lint": "node_modules/.bin/eslint \"API/**\" \"config/**\"",
     "dev": "node_modules/.bin/nodemon node_modules/.bin/babel-node app.js",
     "//": "build   babel -d ./build/config ./config && babel -d ./build/API ./API && babel -d ./build ./app.js"
   },
@@ -19,6 +20,10 @@
     "body-parser": "~1.15.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
+    "eslint": "^3.19.0",
+    "eslint-plugin-async-await": "0.0.0",
+    "eslint-plugin-no-loops": "^0.3.0",
+    "eslint-plugin-unicorn": "^2.1.1",
     "express": "~4.13.4",
     "jsonwebtoken": "^7.3.0",
     "morgan": "~1.7.0",

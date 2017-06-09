@@ -16,7 +16,7 @@ const userSchemaInit = _ => {
         firstname: 'string',
         lastname: 'string',
         email: 'string',
-        birthdate: 'number',
+        birthdate: 'date',
         password: 'string',
         role: 'number'
     });
