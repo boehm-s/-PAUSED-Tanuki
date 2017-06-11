@@ -5,7 +5,7 @@ function test1(req, res, next) {
     next();
 }
 
-function test2(req, res, next) {
+function test2(req, res) {
     req.test += "Et un second par ici :) ...";
     res.json({test: req.test});
 }

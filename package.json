@@ -26,6 +26,7 @@
     "eslint-plugin-unicorn": "^2.1.1",
     "express": "~4.13.4",
     "jsonwebtoken": "^7.3.0",
+    "lodash": "^4.17.4",
     "morgan": "~1.7.0",
     "node-sass-middleware": "0.8.0",
     "nodemon": "^1.11.0",

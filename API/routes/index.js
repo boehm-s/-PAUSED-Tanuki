@@ -11,7 +11,7 @@ router.get('/health-check', (req, res) => {
 
 router.use('/example', exampleRoutes);
 router.use('/users', usersRoutes);
-router.use('/user', usersRoutes); // single user operations
+router.use('/user', userRoutes); // single user operations
 
 
 export default router;

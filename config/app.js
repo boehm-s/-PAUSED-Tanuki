@@ -5,8 +5,7 @@ import cookieParser	from	 'cookie-parser';
 import path		from	 'path';
 import sass		from	 'node-sass-middleware';
 const app	= express();
-const frontRoot = __dirname + '/../FRONT/';
-const apiRoot	= __dirname + '/../API/';
+const frontRoot = `${__dirname}/../FRONT/`;
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
