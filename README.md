@@ -47,6 +47,15 @@ Retrieve data from your models, process the data and add it to the req object, t
 
 Use your controllers as middlewares to obtain the data needed, then write a 'last middleware' that will get the req object, gather the datas and return it.
 
+# What are we doing ?
+
+The perpice of this project is to be the base project for any new API / Website I'll make. It has to depend on reliable libs so I won't have to worry about security issues, or subdependencies maintainment. Features won't be coded 'from scratch' but build with well known and well adopted packages :
+
+- *Express* as back-end framework
+- *Passport* for authentication
+- *Joi* for body validation
+- *mocha* and *supertest* for testing
+
 
 ## TODO
 

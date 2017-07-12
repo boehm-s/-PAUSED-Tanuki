@@ -1,4 +1,7 @@
 import http from 'http';
+
+require('dotenv').config();
+
 const debug = require('debug')('es6-express-api:server');
 
 const createServer = (app, port) => {

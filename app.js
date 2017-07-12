@@ -16,11 +16,8 @@ app.use('/', routes);
 app.use('/api', apiRoutes);
 // wsRoutes(wsServer, server);
 
-(async function main() {
-    await dbConf.initDB();
-    server.listen(port);
-    console.log('server listening on port ' + port);
-})();
+server.listen(port);
+console.log('server listening on port ' + port);
 
 // wss.on('connection', ws => {
 //     ws.on('message', msg => {
