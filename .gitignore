@@ -38,3 +38,6 @@ jspm_packages
 
 # tern
 .tern-port
+
+# package-lock json
+package-lock.json
