@@ -1,0 +1,22 @@
+#lang racket
+
+(require readline)
+(require readline/rep-start)
+
+(define db_list (list "MongoDB" "Neo4J" "PostgreSQL" "MariaDB" "SQLite" "MySQL"))
+(define front_list (list "VanillaJS" "React/Redux" "React/Relay" "React/Flux" "AngularJS" "Angular 2" "Angular 4" "Vue.JS"))
+
+(define (list_choice my_list)
+  (string-join (map (lambda (list_item)
+          (format "[~a] -- ~a" (index-of my_list list_item) list_item)
+          ) my_list) "\n")
+  )
+
+(printf "Which DB do you want to use ? \n")
+(display (list_choice db_list))
+(define choosen_db (read-line))
+
+(printf "Which JS front-end tech tech do you want to use ?\n")
+(display (list_choice front_list))
+(define choosen_js (read-line))
+;; (index-of my_list list_item)
