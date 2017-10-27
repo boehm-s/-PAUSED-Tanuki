@@ -22,4 +22,8 @@
     )
   )
 
-(list_choice "Which DB do you want to use ?" db_list)
+(define db (list_choice "Which DB do you want to use ?" db_list))
+(define front (list_choice "Which Front-End technology do you want to use ?" front_list))
+
+;; make simple vanilla git module, and do the copy
+;; also choose a git lib for racket or do one or just use http calls ?
