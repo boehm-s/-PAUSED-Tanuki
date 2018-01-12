@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start": "pm2 start ecosystem.json",
-    "lint": "node_modules/.bin/eslint \"API/**\" \"config/**\"",
+    "lint": "node_modules/.bin/eslint \"API/*/**.js\" \"config/**\"",
     "dev": "node_modules/.bin/nodemon node_modules/.bin/babel-node app.js",
     "//": "build   babel -d ./build/config ./config && babel -d ./build/API ./API && babel -d ./build ./app.js"
   },

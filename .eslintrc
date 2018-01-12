@@ -2,6 +2,9 @@
     "parserOptions": {
         "ecmaVersion": 2017,
         "sourceType": "module",
+	"ecmaFeatures": {
+	    "experimentalObjectRestSpread": true
+	}
     },
     "plugins": ["async-await", "unicorn", "no-loops"],
     "rules": {
@@ -11,9 +14,8 @@
 	"no-multi-str": "error",
 	"no-redeclare": "error",
 	"no-useless-return": "error",
-	"vars-on-top": "warn",
 	"yoda": ["warn", "always"],
-	"no-unused-vars": "warn",
+	"no-unused-vars": [1, {"argsIgnorePattern": "^_"}],
 	"no-undefined": "error",
 	"no-use-before-define": "error",
 	"global-require": "warn",

@@ -1,16 +1,26 @@
 import express		from 'express';
-import usersCtrl	from './../controllers/users';
+import usersMiddlewares from './../middlewares/users';
 
 const usersRoutes = express.Router();
-const userRoutes = express.Router();
 
 usersRoutes.route('/')
-    .get(usersCtrl.getAll)
-    .post(usersCtrl.create);
+    .get(
+	usersMiddlewares.getAll
+    )
+    .post(
+	usersMiddlewares.create
+    );
 
-userRoutes.route('/:id')
-    .get(usersCtrl.getById)
-    .put(usersCtrl.updateById)
-    .delete(usersCtrl.deleteById);
+usersRoutes.route('/:id')
+    .get(
+	usersMiddlewares.getById
+    )
+    .put(
+	usersMiddlewares.updateById
+    )
+    .delete(
+	usersMiddlewares.deleteById
+    );
 
-export {userRoutes, usersRoutes};
+export {usersRoutes};
+export default usersRoutes;
